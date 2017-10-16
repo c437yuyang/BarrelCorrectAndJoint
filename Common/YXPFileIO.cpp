@@ -99,6 +99,7 @@ bool YXPFileIO::RecurMkDir(const std::string& path)
 //TODO:换成用CString，mfc里面就用CString，不要想那么多
 //取得指定文件夹下的文件及文件夹名称（不递归，只取一级目录），全部用\\，不能/，后面可以带\\(修复了),
 // 返回的是文件的全路径
+//可以用/的目录了
 void YXPFileIO::GetDirectoryFiles(const string &strFolder,
 	vector<string> &strVecFileNames,
 	bool do_sort,
@@ -247,9 +248,9 @@ void YXPFileIO::DeleteDirectory(const std::string path, bool delFolder)
 		RemoveDirectoryA(path.c_str());
 }
 
-std::string YXPFileIO::GetFileNameNoPath(const std::string &filename) //只支持\\的目录
+std::string YXPFileIO::GetFileNameNoPath(const std::string &filename) //支持\\或/的目录
 {
-	int pos = filename.rfind("\\");
+	int pos = filename.find_last_of("\\/");
 	return filename.substr(pos + 1, filename.length() - pos);
 }
 std::string YXPFileIO::GetFileNameNoExt(const std::string &filename) //只判断.的位置，不会去除路径
