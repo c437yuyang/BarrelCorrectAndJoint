@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Common">
-      <UniqueIdentifier>{a21558e3-d7dd-4ffc-9c05-a2c0143cadaa}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImageJointMain.cpp">
@@ -24,16 +21,10 @@
     <ClCompile Include="ImageJointor.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\Common\YXPFileIO.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImageJointor.h">
       <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\yxpfileio.h">
-      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

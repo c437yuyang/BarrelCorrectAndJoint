@@ -13,25 +13,16 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Common">
-      <UniqueIdentifier>{0a8375ed-a442-475e-a50a-8f6bf6fb019c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImageCropMain.cpp">
       <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\YXPFileIO.cpp">
-      <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="ImageBatchProcessor.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Common\yxpfileio.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="ImageBatchProcessor.h">
       <Filter>头文件</Filter>
     </ClInclude>

@@ -1,12 +1,12 @@
 #pragma once
 
-#include <opencvheader.h>
+#include "../00_Common_Lib/opencvheader.h"
+#include "../00_Common_Lib/yxpfileio.h"
+#pragma comment(lib,"../Debug/00_Common_Lib.lib")
+
 #include <iostream>
 #include <string>
 #include <vector>
-#include <yxpfileio.h>
-
-
 
 class ImageBatchProcessor
 {

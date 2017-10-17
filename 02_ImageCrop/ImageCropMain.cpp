@@ -1,5 +1,3 @@
-#include "../Common/OpenCVHeader.h"
-#include "../Common/yxpfileio.h"
 #include <vector>
 #include <string>
 #include <iostream>

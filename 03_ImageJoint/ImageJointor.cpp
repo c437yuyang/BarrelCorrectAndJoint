@@ -16,17 +16,15 @@ ImageJointor::~ImageJointor()
 cv::Mat ImageJointor::Joint(const std::string &src_dir)
 {
 	std::vector<std::string> files = YXPFileIO::GetDirectoryFiles(src_dir);
-	cv::Mat origin = imread(files[0]);
-
-	for (int i=1;i!=files.size();++i)
+	cv::Mat res = imread(files[files.size() - 1]);
+	for (int i = files.size() - 2; i >= 0; --i)
 	{
-		origin = Joint(origin, imread(files[i]));
-		std::cout << "第" << i + 1 << "张图像拼接完成" << std::endl;
-		//imshow("拼接图像",origin);
+		res = Joint(res, imread(files[i]));
+		std::cout << "第" << files.size() - i << "张图像拼接完成" << std::endl;
+		//imshow("拼接图像",res);
 		//cv::waitKey(0);
 	}
-
-	return origin;
+	return res;
 }
 
 
@@ -118,16 +116,15 @@ Point2f ImageJointor::getTransformPoint(const Point2f originalPoint, const Mat &
 //}
 
 
-cv::Mat ImageJointor::Joint(const cv::Mat &src1, const cv::Mat &src2)
+Mat ImageJointor::Joint(const Mat &src1, const Mat & src2)
 {
 	//获取最强配对点在原始图像和矩阵变换后图像上的对应位置，用于图像拼接点的定位
 	Point2f originalLinkPoint, targetLinkPoint, basedImagePoint;
-	basedImagePoint.y = 15;
-
+	basedImagePoint.y = 30;
 	//图像配准
-	Mat imageTransform1(Size(src1.cols, src2.rows + src1.rows - basedImagePoint.y), CV_8UC3, Scalar(0));
+	Mat imageTransform1(Size(src2.cols, src2.rows + src1.rows - basedImagePoint.y), CV_8UC3, Scalar(0));
 	src1.copyTo(imageTransform1(Rect(0, 0, src1.cols, src1.rows)));
-	
+
 	//在最强匹配点左侧的重叠区域进行累加，是衔接稳定过渡，消除突变
 	Mat image1Overlap, image2Overlap; //图1和图2的重叠部分	
 									  //image1Overlap=imageTransform1(Rect(Point(0,targetLinkPoint.y-basedImagePoint.y),Point(image02.cols, targetLinkPoint.y)));
@@ -135,9 +132,9 @@ cv::Mat ImageJointor::Joint(const cv::Mat &src1, const cv::Mat &src2)
 
 	image2Overlap = src2(Rect(0, 0, image1Overlap.cols, image1Overlap.rows));
 	Mat image1ROICopy = image1Overlap.clone();  //复制一份图1的重叠部分
-	for (int i = 0; i<image1Overlap.cols; i++)
+	for (int i = 0; i < image1Overlap.cols; i++)
 	{
-		for (int j = 0; j<image1Overlap.rows; j++)
+		for (int j = 0; j < image1Overlap.rows; j++)
 		{
 			double weight;
 			weight = (double)j / image1Overlap.rows;  //随距离改变而改变的叠加系数
@@ -153,7 +150,42 @@ cv::Mat ImageJointor::Joint(const cv::Mat &src1, const cv::Mat &src2)
 }
 
 
-cv::Mat ImageJointor::Joint(const std::string &src1_name,const std::string &src2_name)
+//cv::Mat ImageJointor::Joint(const cv::Mat &src1, const cv::Mat &src2)
+//{
+//	//获取最强配对点在原始图像和矩阵变换后图像上的对应位置，用于图像拼接点的定位
+//	Point2f originalLinkPoint, targetLinkPoint, basedImagePoint;
+//	basedImagePoint.y = 30;
+//
+//	//图像配准
+//	Mat imageTransform1(Size(src1.cols, src2.rows + src1.rows - basedImagePoint.y), CV_8UC3, Scalar(0));
+//	src1.copyTo(imageTransform1(Rect(0, 0, src1.cols, src1.rows)));
+//	
+//	//在最强匹配点左侧的重叠区域进行累加，是衔接稳定过渡，消除突变
+//	Mat image1Overlap, image2Overlap; //图1和图2的重叠部分	
+//									  //image1Overlap=imageTransform1(Rect(Point(0,targetLinkPoint.y-basedImagePoint.y),Point(image02.cols, targetLinkPoint.y)));
+//	image1Overlap = imageTransform1(Rect(Point(0, src1.rows - basedImagePoint.y), Point(src1.cols, src1.rows)));
+//
+//	image2Overlap = src2(Rect(0, 0, image1Overlap.cols, image1Overlap.rows));
+//	Mat image1ROICopy = image1Overlap.clone();  //复制一份图1的重叠部分
+//	for (int i = 0; i<image1Overlap.cols; i++)
+//	{
+//		for (int j = 0; j<image1Overlap.rows; j++)
+//		{
+//			double weight;
+//			weight = (double)j / image1Overlap.rows;  //随距离改变而改变的叠加系数
+//			image1Overlap.at<Vec3b>(j, i)[0] = (1 - weight)*image1ROICopy.at<Vec3b>(j, i)[0] + weight*image2Overlap.at<Vec3b>(j, i)[0];
+//			image1Overlap.at<Vec3b>(j, i)[1] = (1 - weight)*image1ROICopy.at<Vec3b>(j, i)[1] + weight*image2Overlap.at<Vec3b>(j, i)[1];
+//			image1Overlap.at<Vec3b>(j, i)[2] = (1 - weight)*image1ROICopy.at<Vec3b>(j, i)[2] + weight*image2Overlap.at<Vec3b>(j, i)[2];
+//		}
+//	}
+//	Mat ROIMat = src2(Rect(Point(0, image1Overlap.rows), Point(src2.cols, src2.rows)));	 //图2中不重合的部分
+//	ROIMat.copyTo(imageTransform1(Rect(/*targetLinkPoint.x*/0, src1.rows,/*imageTransform1.rows-ROIMat.rows,*/ ROIMat.cols, ROIMat.rows))); //不重合的部分直接衔接上去
+//	image1Overlap.copyTo(imageTransform1(Rect(0, src1.rows - basedImagePoint.y, image1Overlap.cols, image1Overlap.rows)));
+//	return imageTransform1;
+//}
+
+
+cv::Mat ImageJointor::Joint(const std::string &src1_name, const std::string &src2_name)
 {
 	return Joint(imread(src1_name), imread(src2_name));
 }

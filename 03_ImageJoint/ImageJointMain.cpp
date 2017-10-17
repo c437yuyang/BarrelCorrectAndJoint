@@ -1,5 +1,4 @@
 #include "ImageJointor.h"
-#include "ImageJointor.h"
 using namespace std;
 
 void MyShowImage(const string winName, cv::Mat &Image, unsigned nScale = 1)

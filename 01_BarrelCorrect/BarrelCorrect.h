@@ -1,6 +1,9 @@
 #pragma once
-#include <OpenCVHeader.h>
-#include <YXPFileIO.h>
+#include "../00_Common_Lib/opencvheader.h"
+#include "../00_Common_Lib/yxpfileio.h"
+#pragma comment(lib,"../Debug/00_Common_Lib.lib")
+
+
 #include <iostream>
 #include <fstream>
 #include <regex>

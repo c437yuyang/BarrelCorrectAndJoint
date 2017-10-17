@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "YXPFileIO.h"
 
 using namespace std;
