@@ -237,6 +237,7 @@ std::string YXPFileIO::BrowseFolder(const std::string & title, const HWND owner)
 
 }
 
+//删除当前层级目录的所有文件，不能删除子目录
 void YXPFileIO::DeleteDirectory(const std::string path, bool delFolder)
 {
 	if (path.empty() || !FolderExists(path.c_str())) return;
@@ -327,18 +328,15 @@ bool YXPFileIO::CopyDirFiles(const std::string & src, const std::string & dst, b
 	if (!FolderExists(src) || dstPath.empty()) return false;
 
 	if (dstPath[dstPath.length() - 1] == '\\')
-	{
 		dstPath = dstPath.substr(0, dstPath.length() - 1);
-	}
-
 
 	vector<std::string> srcFiles;
 
-	GetDirectoryFiles(src, srcFiles,true);
+	GetDirectoryFiles(src, srcFiles,true,true);
 	if (!IsExistReplace) //不进行替换的情况下，先检查有重复文件否,防止出现部分拷贝
 	{
 		vector<std::string> dstFiles;
-		GetDirectoryFiles(dstPath, dstFiles, true);
+		GetDirectoryFiles(dstPath, dstFiles, true, true);
 		for (auto srcFile : srcFiles)
 		{
 			for (auto dstFile : dstFiles)
@@ -347,12 +345,8 @@ bool YXPFileIO::CopyDirFiles(const std::string & src, const std::string & dst, b
 								GetFileNameNoPath(dstFile).c_str()) == 0)
 					return false;
 			}
-
 		}
 	}
-
-
-
 	//CopyFile:
 	//If the function succeeds, the return value is nonzero.
 	//If the function fails, the return value is zero.To get extended error information, call GetLastError.
@@ -361,8 +355,6 @@ bool YXPFileIO::CopyDirFiles(const std::string & src, const std::string & dst, b
 		if (!CopyFileA(it->c_str(), (dst +"\\"+ GetFileNameNoPath(*it)).c_str(), !IsExistReplace))
 			return false;
 	}
-
-
 	return true;
 }
 

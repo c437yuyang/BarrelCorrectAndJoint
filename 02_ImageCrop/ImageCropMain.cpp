@@ -76,6 +76,7 @@ int main()
 	const std::string src_dir = "../WorkSpace/02_CorrectedImage";
 	const std::string dst_dir = "../WorkSpace/03_CropedImage";
 	YXPFileIO::FindOrMkDir(dst_dir);
+	YXPFileIO::DeleteDirectory(dst_dir);
 	vector<std::string> files = YXPFileIO::GetDirectoryFiles(src_dir);
 
 	Mat imgOrigin, imgTemp;
