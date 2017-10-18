@@ -1,8 +1,13 @@
 #pragma once
 
+
 #include "../00_Common_Lib/opencvheader.h"
 #include "../00_Common_Lib/yxpfileio.h"
-#pragma comment(lib,"../Debug/00_Common_Lib.lib")
+#ifdef _DEBUG
+#pragma comment(lib,"../Debug/00_Common_Libd.lib")
+#else
+#pragma comment(lib,"../Release/00_Common_Lib.lib")
+#endif
 
 #include <iostream>
 #include <string>
