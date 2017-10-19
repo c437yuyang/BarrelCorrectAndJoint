@@ -34,3 +34,23 @@ bool ImageBatchProcessor::CropImage(const std::string &src, const std::string &d
 	imwrite(dst, srcImg(roi));
 	return true;
 }
+
+cv::Mat ImageBatchProcessor::CropImage(const cv::Mat & src, const cv::Rect & roi)
+{
+
+	if (roi.width > src.cols || roi.height > src.rows ||
+		roi.tl().x < 0 || roi.tl().y < 0 || roi.br().x>src.cols || roi.br().y > src.rows)
+	{
+		return cv::Mat();
+	}
+
+	return src(roi);
+}
+
+cv::Mat ImageBatchProcessor::CropImageInCenter(const cv::Mat & src, int width, int height)
+{
+	int w = src.cols;
+	int h = src.rows;
+	cv::Rect roi((w - width) / 2, (h - height) / 2, width, height);
+	return CropImage(src,roi);
+}

@@ -15,15 +15,26 @@ ImageJointor::~ImageJointor()
 
 cv::Mat ImageJointor::Joint(const std::string &src_dir)
 {
+	//std::vector<std::string> files = YXPFileIO::GetDirectoryFiles(src_dir);
+	//cv::Mat res = imread(files[files.size() - 1]);
+	//for (int i = files.size() - 2; i >= 0; --i)
+	//{
+	//	res = Joint(res, imread(files[i]));
+	//	std::cout << "第" << files.size() - i << "张图像拼接完成" << std::endl;
+	//	//imshow("拼接图像",res);
+	//	//cv::waitKey(0);
+	//}
+
 	std::vector<std::string> files = YXPFileIO::GetDirectoryFiles(src_dir);
-	cv::Mat res = imread(files[files.size() - 1]);
-	for (int i = files.size() - 2; i >= 0; --i)
+	cv::Mat res = imread(files[0]);
+	for (int i = 1; i != files.size(); ++i)
 	{
-		res = Joint(res, imread(files[i]));
-		std::cout << "第" << files.size() - i << "张图像拼接完成" << std::endl;
+		res = Joint(imread(files[i]),res);
+		std::cout << "第" << i + 1 << "张图像拼接完成" << std::endl;
 		//imshow("拼接图像",res);
 		//cv::waitKey(0);
 	}
+
 	return res;
 }
 
@@ -120,7 +131,7 @@ Mat ImageJointor::Joint(const Mat &src1, const Mat & src2)
 {
 	//获取最强配对点在原始图像和矩阵变换后图像上的对应位置，用于图像拼接点的定位
 	Point2f originalLinkPoint, targetLinkPoint, basedImagePoint;
-	basedImagePoint.y = 100;
+	basedImagePoint.y = 150;
 	//图像配准
 	Mat imageTransform1(Size(src2.cols, src2.rows + src1.rows - basedImagePoint.y), CV_8UC3, Scalar(0));
 	src1.copyTo(imageTransform1(Rect(0, 0, src1.cols, src1.rows)));

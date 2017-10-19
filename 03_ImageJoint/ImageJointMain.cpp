@@ -18,6 +18,8 @@ int main()
 	//cv::Mat res = ImageJointor::Joint(src_dir + "/01.jpg", src_dir + "/02.jpg");
 	//cv::Mat res = ImageJointor::Joint( "11.jpg","22.jpg");
 
+
+	imwrite(dst_dir + "/result.jpg", res);
 	MyShowImage("result", res, 4);
 	cv::waitKey(0);
 

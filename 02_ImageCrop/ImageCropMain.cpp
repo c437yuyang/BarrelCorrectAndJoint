@@ -71,7 +71,7 @@ void DrawRectangle(cv::Mat &img, cv::Rect box) {
 	cv::rectangle(img, box.tl(), box.br(), cv::Scalar(0, 255, 0), 4);
 }
 
-int main() 
+int main()
 {
 	const std::string src_dir = "../WorkSpace/02_CorrectedImage";
 	const std::string dst_dir = "../WorkSpace/03_CropedImage";
@@ -107,6 +107,24 @@ int main()
 
 
 	ImageBatchProcessor ibp;
+
+	
+#pragma region 始终裁剪最中心
+	int h1 = 320; //裁剪后的高度
+	int w1 = 4000;// 裁剪后的宽度
+	int h = imgOrigin.rows;
+	int w = imgOrigin.cols;
+	//g_rectangle.tl() = Point2i((w - w1) / 2, (h - h1) / 2);
+	//g_rectangle.br() = Point2i((w - w1) / 2 + w1, (h - h1) / 2 + h1);
+	
+	g_rectangle.x = (w - w1) / 2;
+	g_rectangle.y = (h - h1) / 2;
+	g_rectangle.width = w1;
+	g_rectangle.height = h1;
+
+
+#pragma endregion
+
 
 	ibp.CropImagesInDir(src_dir, dst_dir, g_rectangle);
 
