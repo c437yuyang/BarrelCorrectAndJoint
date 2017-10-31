@@ -110,17 +110,17 @@ int main()
 
 	
 #pragma region 始终裁剪最中心
-	int h1 = 320; //裁剪后的高度
-	int w1 = 4000;// 裁剪后的宽度
-	int h = imgOrigin.rows;
-	int w = imgOrigin.cols;
-	//g_rectangle.tl() = Point2i((w - w1) / 2, (h - h1) / 2);
-	//g_rectangle.br() = Point2i((w - w1) / 2 + w1, (h - h1) / 2 + h1);
-	
-	g_rectangle.x = (w - w1) / 2;
-	g_rectangle.y = (h - h1) / 2;
-	g_rectangle.width = w1;
-	g_rectangle.height = h1;
+	//int h1 = 320; //裁剪后的高度
+	//int w1 = 4000;// 裁剪后的宽度
+	//int h = imgOrigin.rows;
+	//int w = imgOrigin.cols;
+	////g_rectangle.tl() = Point2i((w - w1) / 2, (h - h1) / 2);
+	////g_rectangle.br() = Point2i((w - w1) / 2 + w1, (h - h1) / 2 + h1);
+	//
+	//g_rectangle.x = (w - w1) / 2;
+	//g_rectangle.y = (h - h1) / 2;
+	//g_rectangle.width = w1;
+	//g_rectangle.height = h1;
 
 
 #pragma endregion

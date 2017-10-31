@@ -17,6 +17,7 @@ bool BarrelCorrect::GetCalibrationResult(const std::string& srcDir, cv::Size boa
 	ofstream ofs(srcDir + "/calibration_result.txt");  /**    保存定标结果的文件     **/
 	vector<std::string> files;
 	YXPFileIO::GetDirectoryFiles(srcDir, files, true, false, ".jpg");
+	files.pop_back();
 	int image_count = files.size();
 	cv::Mat frame;
 	vector<Point2f> corners;                  /****    缓存每幅图像上检测到的角点       ****/
@@ -30,6 +31,8 @@ bool BarrelCorrect::GetCalibrationResult(const std::string& srcDir, cv::Size boa
 	for (int i = 0; i != image_count; ++i)
 	{
 		frame = imread(files[i]);
+		resize(frame, frame, Size(0, 0), 0.5, 0.5);
+		resize(frame, frame, Size(0, 0), 2.0, 2.0);
 		image_size = frame.size();
 		/* 提取角点 */
 		Mat imageGray;
