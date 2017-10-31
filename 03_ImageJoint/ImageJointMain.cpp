@@ -14,7 +14,7 @@ int main()
 	const std::string dst_dir = "../WorkSpace/04_JointImage";
 	YXPFileIO::FindOrMkDir(dst_dir);
 	//cv::Mat res = ImageJointor::Joint(src_dir);
-	ImageJointor::Joint_Test(src_dir);
+	ImageJointor::Joint_Test(src_dir,dst_dir);
 	//cv::Mat res = ImageJointor::Joint(src_dir + "/01.jpg", src_dir + "/02.jpg");
 	//cv::Mat res = ImageJointor::Joint( "11.jpg","22.jpg");
 

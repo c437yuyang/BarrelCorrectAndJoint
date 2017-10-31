@@ -7,11 +7,11 @@ int main()
 	BarrelCorrect bc;
 	
 #pragma region 没有参数，从标尺图像获取
-//	if(!bc.GetCalibrationResult(workspace + "/00_RulerImage14X9_5dsr",cv::Size(14,9),false))
-//{
-//	std::cout << "获取矫正参数失败!" << std::endl;
-//	return -1;
-//}  
+	if(!bc.GetCalibrationResult(workspace + "/00_RulerImage14X9_5dsr",cv::Size(14,9),false))
+{
+	std::cout << "获取矫正参数失败!" << std::endl;
+	return -1;
+}  
 #pragma endregion
 
 

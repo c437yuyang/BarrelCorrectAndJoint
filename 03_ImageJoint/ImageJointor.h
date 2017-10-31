@@ -15,7 +15,7 @@ class ImageJointor
 public:
 	ImageJointor();
 	~ImageJointor();
-	static void ImageJointor::Joint_Test(const std::string &src_dir);
+	static void ImageJointor::Joint_Test(const std::string &src_dir, const std::string &dst_dir);
 	static cv::Mat ImageJointor::Joint(const cv::Mat &src1, const cv::Mat &src2);
 	static cv::Mat Joint(const std::string &src1_name, const std::string &src2_name);
 	static cv::Mat ImageJointor::Joint(const std::string &src_dir);

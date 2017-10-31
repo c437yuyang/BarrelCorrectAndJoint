@@ -12,11 +12,11 @@ BarrelCorrect::~BarrelCorrect()
 }
 
 //srcDir:标尺图像文件所在路径
-bool BarrelCorrect::GetCalibrationResult(const std::string& srcDir, cv::Size board_size, bool display_progress)
+bool BarrelCorrect::GetCalibrationResult(const std::string& src_dir, cv::Size board_size, bool display_progress)
 {
-	ofstream ofs(srcDir + "/calibration_result.txt");  /**    保存定标结果的文件     **/
-	vector<std::string> files;
-	YXPFileIO::GetDirectoryFiles(srcDir, files, true, false, ".jpg");
+	ofstream ofs(src_dir + "/calibration_result.txt");  /**    保存定标结果的文件     **/
+	std::vector<std::string> files;
+	YXPFileIO::GetDirectoryFiles(src_dir, files, true, false, false, ".jpg");
 	files.pop_back();
 	int image_count = files.size();
 	cv::Mat frame;
